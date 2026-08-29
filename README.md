@@ -29,11 +29,11 @@ You’re using Yoast SEO Premium to manage redirects in WordPress, and your fron
 
 ## 🛠 Installation
 
-1. Clone or download this repo into your WordPress `plugins` folder:
-wp-content/plugins/yoast-graphql-redirect-checker/
+1. Download the latest release zip from [Releases](https://github.com/finanzero/Yoast-Redirect-GraphQL-Checker/releases/latest).
+2. In wp-admin, go to **Plugins → Add New → Upload Plugin** and upload the zip (or extract it into `wp-content/plugins/`).
+3. Activate the plugin from the **WordPress admin dashboard**.
 
-
-2. Activate the plugin from the **WordPress admin dashboard**.
+Building from source instead? Clone this repo into `wp-content/plugins/` — just note it includes dev-only files (`CONTRIBUTING.md`, `.github/`, etc.) that the release zip omits.
 
 ---
 
