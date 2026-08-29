@@ -84,8 +84,8 @@ Copyright (c) 2025 Finanzero
 ## 🤝 Contributing
 Pull requests and suggestions are welcome! See [CONTRIBUTING.md](CONTRIBUTING.md) for guidelines.
 
-## 🙋‍♂️ Maintainers
-Maintained by [Finanzero](https://github.com/finanzero). Originally created by [Leonardo Assef](https://github.com/assef).
+## 🙋‍♂️ Author & Maintainers
+Designed and built by [Leonardo Assef](https://github.com/assef) — conceived, architected, and implemented solo to solve redirect handling for [Finanzero](https://github.com/finanzero)'s headless Next.js frontend. Owned and maintained by Finanzero.
 
 ## 🔗 Plugin Links
 - [Yoast SEO Premium](yoast.com)
