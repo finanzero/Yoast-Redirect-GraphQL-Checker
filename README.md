@@ -79,21 +79,13 @@ query {
 ## 📄 License
 [MIT License](https://mit-license.org/)
 
-Copyright (c) 2025 Leonardo Assef
+Copyright (c) 2025 Finanzero
 
 ## 🤝 Contributing
-1. Pull requests and suggestions are welcome!
-2. Fork the repo
-3. Create a new branch (git checkout -b feature/my-feature)
-4. Commit your changes (git commit -am 'Add some feature')
-5. Push and open a PR (git push origin feature/my-feature)
+Pull requests and suggestions are welcome! See [CONTRIBUTING.md](CONTRIBUTING.md) for guidelines.
 
-## 🙋‍♂️ Author
-Leonardo Assef
-
-GitHub: [@assef](https://github.com/assef)
-
-[Linkedin](https://www.linkedin.com/in/leonardo-assef/)
+## 🙋‍♂️ Maintainers
+Maintained by [Finanzero](https://github.com/finanzero). Originally created by [Leonardo Assef](https://github.com/assef).
 
 ## 🔗 Plugin Links
 - [Yoast SEO Premium](yoast.com)
