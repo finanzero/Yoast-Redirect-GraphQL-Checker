@@ -1,25 +1,26 @@
 # Yoast Redirect GraphQL Checker
 
-A lightweight WordPress plugin that adds a custom GraphQL field to [WPGraphQL](https://www.wpgraphql.com/), allowing you to check if a given URL has a redirect configured in **Yoast SEO Premium**.
+A lightweight WordPress plugin that adds a custom GraphQL field to [WPGraphQL](https://www.wpgraphql.com/), allowing you to check if a given URL has a redirect configured in **[Redirection](https://redirection.me/)** or **Yoast SEO Premium**.
 
-This is ideal for **headless WordPress** or **decoupled frontends** (e.g., Next.js, React, Gatsby) that need access to redirect logic stored in Yoast.
+This is ideal for **headless WordPress** or **decoupled frontends** (e.g., Next.js, React, Gatsby) that need access to redirect logic stored in WordPress.
 
 ---
 
 ## ✨ Features
 
-- 🔎 Check if a specific URL has a redirect configured in Yoast
+- 🔎 Check if a specific URL has a redirect configured, in Redirection or Yoast SEO Premium
+- 🔀 Checks Redirection first, falling back to Yoast SEO Premium — works through a migration from one to the other, in either direction, with no consumer-side changes
 - 🧠 Supports both **plain** and **regex** redirect formats
-- ⚡ Efficient — does not return the full redirect list
+- ⚡ Efficient — does not return the full redirect list, and doesn't affect either plugin's own hit counters/logs
 - 🔁 Returns `origin`, `target`, `type`, and `format`
 - 🧩 Designed for GraphQL-based frontends
-- ✅ No database query — uses Yoast's internal redirect store
+- ✅ No custom database query — reads each plugin's own redirect store/API directly
 
 ---
 
 ## 🧠 Use Case
 
-You’re using Yoast SEO Premium to manage redirects in WordPress, and your frontend is built in React, Next.js, or another decoupled stack. This plugin allows your frontend to:
+You manage redirects in WordPress with Redirection and/or Yoast SEO Premium, and your frontend is built in React, Next.js, or another decoupled stack. This plugin allows your frontend to:
 
 - ✅ Fetch redirect data at build/runtime
 - ✅ Avoid relying on server-side redirect logic
@@ -154,16 +155,19 @@ Two things worth keeping in any real implementation:
 ## ⚙️ Requirements
 - WordPress 5.5+
 - PHP 7.4+
-- Yoast SEO Premium (redirects are a Premium-only feature)
 - WPGraphQL
+- [Redirection](https://redirection.me/) and/or Yoast SEO Premium (redirects are a Premium-only Yoast feature) — at least one, checked in that order
 
-If either dependency is missing or inactive, the plugin shows an admin notice instead of failing silently — `yoastRedirectForUrl` will simply always resolve to `null` until both are active.
+If WPGraphQL is missing, or neither redirect source is active, the plugin shows an admin notice instead of failing silently — `yoastRedirectForUrl` will simply always resolve to `null` until that's fixed.
 
 ## 🧑‍💻 Developer Notes
-- The plugin uses `WPSEO_Redirect_Option()->get_from_option()` to read the current list of configured redirects — no direct database query.
-- Regex rules are evaluated using `preg_match()`; the pattern comes from Yoast's stored config (trusted), the subject is the requested URL (untrusted). A malformed saved pattern is treated as "no match" rather than breaking the whole lookup.
+- Redirection is checked first, via `Red_Item::get_for_url()` — the same lookup Redirection's own frontend module uses, already filtered to enabled items/groups. It deliberately does *not* use `Red_Item::get_match()` for the final match check: that method fires a `redirection_visit` action that increments hit counts / writes a log entry, which isn't appropriate for a cheap, read-only check called on every navigation.
+- Yoast SEO Premium (checked second, as a fallback) is read via `WPSEO_Redirect_Option()->get_from_option()`.
+- Neither path runs a custom database query.
+- Regex rules are evaluated using `preg_match()`; the pattern comes from the source plugin's stored config (trusted), the subject is the requested URL (untrusted). A malformed saved pattern is treated as "no match" rather than breaking the whole lookup.
 - Matching is based only on the URL path (domain and query string are ignored).
 - The `url` argument is required (`String!`) — omitting it is a GraphQL validation error, not a silent `null`.
+- The GraphQL field (`yoastRedirectForUrl`) and type (`YoastRedirect`) names are kept from this plugin's original Yoast-only scope for backwards compatibility, even though neither is Yoast-exclusive anymore.
 
 ## 🔒 Security Considerations
 `yoastRedirectForUrl` is registered on the public `RootQuery` type with no capability check, by design — a redirect-existence check needs to work for anonymous frontend visitors. This means **any GraphQL client can query any URL's redirect status**, including origin/target pairs for redirects you didn't expect to expose publicly. If your WPGraphQL setup already restricts introspection or requires authentication for all queries, this field follows those same restrictions; it does not add any additional exposure beyond whatever your WPGraphQL access model already allows for public queries.
@@ -180,5 +184,6 @@ Pull requests and suggestions are welcome! See [CONTRIBUTING.md](CONTRIBUTING.md
 Designed and built by [Leonardo Assef](https://github.com/assef) — conceived, architected, and implemented solo to solve redirect handling for [Finanzero](https://github.com/finanzero)'s headless Next.js frontend. Owned and maintained by Finanzero.
 
 ## 🔗 Plugin Links
+- [Redirection](https://redirection.me/)
 - [Yoast SEO Premium](yoast.com)
 - [WPGraphQL](wpgraphql.com)
