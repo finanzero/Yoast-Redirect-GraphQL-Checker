@@ -35,6 +35,23 @@ You’re using Yoast SEO Premium to manage redirects in WordPress, and your fron
 
 Building from source instead? Clone this repo into `wp-content/plugins/` — just note it includes dev-only files (`CONTRIBUTING.md`, `.github/`, etc.) that the release zip omits.
 
+### Via Composer
+
+This repo ships its own `composer.json` (`type: wordpress-plugin`), so it can be required directly from a `composer/installers`-based project without vendoring the code:
+
+```json
+{
+    "repositories": [
+        { "type": "vcs", "url": "https://github.com/finanzero/Yoast-Redirect-GraphQL-Checker" }
+    ],
+    "require": {
+        "finanzero/yoast-graphql-redirect-checker": "^1.1"
+    }
+}
+```
+
+Composer resolves versions from this repo's git tags, so pin a real tag/constraint rather than a branch.
+
 ---
 
 ## 🚀 GraphQL Usage
