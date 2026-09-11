@@ -1,0 +1,16 @@
+{
+    "name": "finanzero/yoast-graphql-redirect-checker",
+    "description": "Exposes redirects (Redirection, or Yoast SEO Premium as a fallback) to WPGraphQL.",
+    "type": "wordpress-plugin",
+    "license": "MIT",
+    "homepage": "https://github.com/finanzero/Yoast-Redirect-GraphQL-Checker",
+    "authors": [
+        {
+            "name": "Finanzero",
+            "homepage": "https://github.com/finanzero"
+        }
+    ],
+    "require": {
+        "php": ">=7.4"
+    }
+}
