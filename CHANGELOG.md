@@ -1,5 +1,11 @@
 # Changelog
 
+## 1.1.0
+
+- `yoastRedirectForUrl` now checks the [Redirection](https://redirection.me/) plugin's store first (`Red_Item::get_for_url()`), falling back to Yoast SEO Premium's store if Redirection isn't active or has no match. Keeps working unchanged through a migration from one source to the other.
+- Admin dependency notice now accepts either Redirection or Yoast SEO Premium as the redirect source, instead of requiring Yoast SEO Premium specifically.
+- No GraphQL schema change: the `yoastRedirectForUrl` field and `YoastRedirect` type names/shape are unchanged (see [#1](https://github.com/finanzero/Yoast-Redirect-GraphQL-Checker/issues/1) for why the names were kept despite the broadened scope).
+
 ## 1.0.1
 
 - Added `ABSPATH` guard against direct file access.
